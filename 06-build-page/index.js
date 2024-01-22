@@ -1,6 +1,5 @@
 const fs = require('fs');
 const path = require('path');
-const http = require("http");
 
 const pathToProject = path.join(__dirname, 'project-dist');
 const pathToProjAssets = path.join(pathToProject, 'assets');
@@ -90,18 +89,18 @@ function getAssets(from, to)
       
     });
 
-    // fs.readdir(/*pathToCopyFiles*/to, (err, copyFiles) =>
-    // {
+    fs.readdir(to, (err, copyFiles) =>
+    {
 
-    //   copyFiles.forEach((item) =>
-    //   {
-    //     if(!Object.values(files).includes(item))
-    //     {
-    //       const deleteFilePath = path.join(to, item);
-    //       fs.unlink(deleteFilePath, () => {});
-    //     }
-    //   })
-    // })
+      copyFiles.forEach((item) =>
+      {
+        if(!files.find((filesItem) => filesItem.name === item))
+        {
+          const deleteFilePath = path.join(to, item);
+          fs.unlink(deleteFilePath, () => {});
+        }
+      })
+    })
   });
 }
 
